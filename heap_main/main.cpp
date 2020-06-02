@@ -1,7 +1,7 @@
 #include <random>
 #include <ctime>
 #include <vector>
-#include "d_heap_sort.h"
+#include "link.h"
 
 int main(){
   return 0;
