@@ -1,1 +1,1 @@
-# Thicc-Slim-Heap
+# Thin-Thick-Heap
