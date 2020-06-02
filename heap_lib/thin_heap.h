@@ -6,7 +6,5 @@
 
 
 class ThinHeap {
- 
+  
 };
-
-
