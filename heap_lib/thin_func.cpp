@@ -24,6 +24,9 @@ ThinHeap* Merge(ThinHeap* heap_f, ThinHeap* heap_s) {
   if (heap_f->start->key < heap_s->start->key) {
     heap_f->end->right_ptr = heap_s->start;
     heap_f->end = heap_s->end;
+  } else {
+    heap_s->end->right_ptr = heap_f->start;
+    heap_s->end = heap_f->end;
   }
   return nullptr;
 }
