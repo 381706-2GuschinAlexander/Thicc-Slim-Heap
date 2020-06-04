@@ -8,6 +8,6 @@ struct ThinHeap {
   Node* start;
   Node* end;
 
-
+  int64_t max_rank;
   ThinHeap();
 };
