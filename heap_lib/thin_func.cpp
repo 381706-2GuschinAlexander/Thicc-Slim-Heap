@@ -1,10 +1,9 @@
 #include "thin_func.h"
-
+namespace thin {
 ThinHeap* MakeHeap() { return new ThinHeap; }
 
 void Insert(ThinHeap* heap, Node* node) {
-  if (node->rank > heap->max_rank)
-    heap->max_rank = node->rank;
+  if (node->rank > heap->max_rank) heap->max_rank = node->rank;
   if (heap->start == nullptr) {
     heap->start = node;
     heap->end = node;
@@ -45,7 +44,7 @@ ThinHeap* Merge(ThinHeap* heap_f, ThinHeap* heap_s) {
   }
 }
 
-Node* ExtractMin(ThinHeap* & heap) {
+Node* ExtractMin(ThinHeap*& heap) {
   Node* tmp = heap->start;
   if (tmp == nullptr) return nullptr;
   heap->start = heap->start->right_ptr;
@@ -53,11 +52,11 @@ Node* ExtractMin(ThinHeap* & heap) {
 
   Node* iter = tmp->child_ptr;
   while (iter != nullptr) {
-    if (IsThin(iter)) iter->rank -= 1;
+    if (thin::IsThin(iter)) iter->rank -= 1;
     iter->left_ptr = nullptr;
     Node* next = iter->right_ptr;
     iter->right_ptr = nullptr;
-    Insert(heap, iter);
+    thin::Insert(heap, iter);
     iter = next;
   }
 
@@ -75,7 +74,6 @@ Node* ExtractMin(ThinHeap* & heap) {
   while (iter != nullptr) {
     Node* next = iter->right_ptr;
     while (vec_ptr[iter->rank] != nullptr) {
-      
       if (vec_ptr[iter->rank]->key < iter->key)
         std::swap(vec_ptr[iter->rank], iter);
       vec_ptr[iter->rank]->right_ptr = iter->child_ptr;
@@ -90,7 +88,7 @@ Node* ExtractMin(ThinHeap* & heap) {
         max_rank = iter->rank;
       }
     }
-    
+
     vec_ptr[iter->rank] = iter;
     vec_ptr[iter->rank]->right_ptr = nullptr;
     iter = next;
@@ -101,8 +99,9 @@ Node* ExtractMin(ThinHeap* & heap) {
   delete tmp_ptr;
   for (size_t i = 0; i < vec_ptr.size(); i++) {
     if (vec_ptr[i] != nullptr) {
-      Insert(heap, vec_ptr[i]);
+      thin::Insert(heap, vec_ptr[i]);
     }
   }
   return tmp;
 }
+}  // namespace thin
