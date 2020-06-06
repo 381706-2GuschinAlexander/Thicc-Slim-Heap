@@ -16,4 +16,16 @@ struct Node {
   Node& operator=(const Node& node);
 };
 
+struct FatNode {
+  int64_t key;
+  int64_t rank;
+  FatNode* left_ptr;
+  FatNode* right_ptr;
+  FatNode* child_ptr;
+  FatNode* parent_ptr;
 
+  FatNode();
+  FatNode(int64_t key_v);
+
+  FatNode& operator=(const FatNode& node);
+};

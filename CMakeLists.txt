@@ -4,7 +4,6 @@ set(PROJECT_NAME Heap) #Создаем обычную локальную пер�
 project(${PROJECT_NAME}) # Название проекта
 
 set(heap_main heap_main)
-set(heap_test heap_test)
 set(heap_lib heap_lib)
 set(link_lib link_lib)
 
@@ -18,7 +17,6 @@ include_directories(
  ${CMAKE_CURRENT_SOURCE_DIR}/link_lib)
 
 add_subdirectory(heap_main)
-add_subdirectory(heap_test)
 add_subdirectory(heap_lib)
 add_subdirectory(link_lib)
 
