@@ -68,9 +68,7 @@ void ThickHeap::rmFixRootCount(int i) {
   if (max_rank == i) {
     max_rank++;
     root_count.push_back(RootCountItem());
-    count_violation.push_back(CountViolatinItem());
-    root_count[i + 1].value = 0;
-    count_violation[i + 1].value = 0;
+    //count_violation.push_back(CountViolatinItem());
   } else
     UpdateForwardPtr(i + 1);
 
