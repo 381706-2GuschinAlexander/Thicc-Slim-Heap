@@ -31,4 +31,5 @@ struct ThickHeap {
   void DeleteTree(int i, FatNode* p);
   FatNode* fastening(FatNode* p1, FatNode* p2, FatNode* p3);
   void rmFixRootCount(int i);
+  void rmIncCount(int i, FatNode* node);
 };

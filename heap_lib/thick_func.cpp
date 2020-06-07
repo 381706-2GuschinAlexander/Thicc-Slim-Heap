@@ -3,8 +3,9 @@ namespace thick {
 ThickHeap* MakeHeap() { return new ThickHeap; }
 
 void Insert(ThickHeap* heap, FatNode* node) {
-  heap->InsertTree(0, node);
-  if (heap->min_key_ptr == nullptr || node->key < heap->min_key_ptr->key) heap->min_key_ptr = node;
+  heap->rmIncCount(0, node);
+  if (heap->min_key_ptr == nullptr || node->key < heap->min_key_ptr->key)
+    heap->min_key_ptr = node;
 }
 
 FatNode* GetMin(ThickHeap* heap) { return heap->min_key_ptr; }
@@ -28,20 +29,25 @@ FatNode* GetMin(ThickHeap* heap) { return heap->min_key_ptr; }
 FatNode* ExtractMin(ThickHeap*& heap) {
   auto tmp = GetMin(heap);
 
+  
   auto iter = tmp->child_ptr;
-  auto tmp_rank = tmp->rank;
+  heap->DeleteTree(tmp->rank, tmp);
   while (iter != nullptr) {
-    heap->InsertTree(tmp_rank - 1, iter);
-    iter = iter->right_ptr;
-  }
-  heap->DeleteTree(tmp_rank, tmp);
-
-  int i = 0, j = heap->max_rank;
-  while (i < j) {
-    if (heap->root_count[i].value >= 3)
-      ;
+    auto iter_next = iter->right_ptr;
+    heap->rmIncCount(iter->rank, iter);
+    iter = iter_next;
   }
 
+  iter = nullptr;
+  heap->min_key_ptr = nullptr;
+  for (int i = 0; i <= heap->max_rank; ++i) {
+    iter = heap->root_count[i].list_ptr;
+    while (iter != nullptr) {
+      if (heap->min_key_ptr == nullptr || iter->key < heap->min_key_ptr->key)
+        heap->min_key_ptr = iter;
+      iter = iter->right_ptr;
+    }
+  }
   return tmp;
 }
 }  // namespace thick
