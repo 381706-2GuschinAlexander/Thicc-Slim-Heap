@@ -41,5 +41,16 @@ int main() {
     for (size_t i = 1; i < size; i++)
       if (vec[i] != vec[i - 1] + 1) return 2;
   }
+
+  auto c = thick::MakeHeap();
+  thick::Insert(c, new FatNode(24));
+  thick::Insert(c, new FatNode(22354));
+  thick::Insert(c, new FatNode(2234));
+  thick::Insert(c, new FatNode(2234));
+  auto tmp = thick::ExtractMin(c);
+  thick::Insert(c, new FatNode(234));
+  thick::Insert(c, new FatNode(274));
+  tmp = thick::ExtractMin(c);
+
   return 0;
 }

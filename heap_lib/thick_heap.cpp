@@ -11,8 +11,10 @@ void ThickHeap::UpdateForwardPtr(int64_t i) {
 
 void ThickHeap::InsertTree(int i, FatNode* p) {
   auto p1 = root_count[i].list_ptr;
-  if (root_count[i].value != 0)
+  if (root_count[i].value != 0) {
     p->right_ptr = p1;
+    p1->left_ptr = p;
+  }
   else
     p->right_ptr = nullptr;
   p->left_ptr = nullptr;
@@ -24,16 +26,11 @@ void ThickHeap::InsertTree(int i, FatNode* p) {
 void ThickHeap::DeleteTree(int i, FatNode* p) {
   auto p1 = root_count[i].list_ptr;
   if (p1 == p) root_count[i].list_ptr = p->right_ptr;
-  int j = 1;
-  if (root_count[i].value > 1) {
-    while (j <= root_count[i].value && p1->right_ptr != p) {
-      ++j;
-      p1 = p1->right_ptr;
-    }
-    if (p1 != nullptr)
-      p1->right_ptr = nullptr;
-    else
-      p1->right_ptr = p->right_ptr;
+  else if (p->right_ptr != nullptr) {
+    p->left_ptr->right_ptr = p->right_ptr;
+    p->right_ptr->left_ptr = p->left_ptr;
+  } else {
+    p->left_ptr->right_ptr = nullptr;
   }
   root_count[i].value--;
 }
@@ -56,7 +53,7 @@ FatNode* ThickHeap::fastening(FatNode* p1, FatNode* p2, FatNode* p3) {
   p1->right_ptr = p2;
   p1->left_ptr = nullptr;
   p1->parent_ptr = minP;
-  p2->right_ptr = /*minP->child_ptr*/ nullptr;
+  p2->right_ptr = minP->child_ptr;
   p2->left_ptr = p1;
   p2->parent_ptr = minP;
   if (minP->child_ptr != nullptr) minP->child_ptr->left_ptr = p2;
