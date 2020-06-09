@@ -10,22 +10,6 @@ void Insert(ThickHeap* heap, FatNode* node) {
 
 FatNode* GetMin(ThickHeap* heap) { return heap->min_key_ptr; }
 
-// ThickHeap* Merge(ThickHeap* heap_f, ThickHeap* heap_s) {
-//  if (heap_f->start == nullptr) return heap_s;
-//  if (heap_s->start == nullptr) return heap_f;
-//  if (heap_f->start->key < heap_s->start->key) {
-//    heap_f->end->right_ptr = heap_s->start;
-//    heap_f->end = heap_s->end;
-//    delete heap_s;
-//    return heap_f;
-//  } else {
-//    heap_s->end->right_ptr = heap_f->start;
-//    heap_s->end = heap_f->end;
-//    delete heap_f;
-//    return heap_s;
-//  }
-//}
-
 FatNode* ExtractMin(ThickHeap*& heap) {
   auto tmp = GetMin(heap);
 

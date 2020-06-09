@@ -9,7 +9,8 @@
 
 // 200'000'000 + pow(i,2)*i
 int main() {
-  size_t max_size = 130'000'000;
+  size_t max_size = 50'000'000;
+  std::cout << "size: " << max_size << std::endl;
   std::vector<Node *> vec(max_size, nullptr);
   for (int i = 0; i < max_size; i++)
     vec[i] = new Node(2 * max_size + pow(-1, i) * i);
@@ -24,9 +25,10 @@ int main() {
   }
   auto end = std::chrono::system_clock::now();
   std::chrono::duration<double, std::milli> time(end - start);
-  std::cout << "required time: " << time.count() / 1000 << std::endl;
+  std::cout << "thin heap required time: " << time.count() / 1000 << std::endl;
 
   for (int i = 0; i < max_size; i++) delete vec[i];
+  vec.clear();
   //
   //
   //
@@ -43,12 +45,12 @@ int main() {
   for (size_t i = 0; i < max_size; i++) {
     thick::ExtractMin(b);
   }
-
   end = std::chrono::system_clock::now();
   std::chrono::duration<double, std::milli> time2(end - start);
-  std::cout << "required time: " << time2.count() / 1000 << std::endl;
+  std::cout << "thick heap required time: " << time2.count() / 1000 << std::endl;
 
   for (int i = 0; i < max_size; i++) delete vec2[i];
+  vec2.clear();
   //
   //
   //
@@ -66,22 +68,11 @@ int main() {
     heap.del(0);
   }
 
-  //}
   end = std::chrono::system_clock::now();
   std::chrono::duration<double, std::milli> time3(end - start);
-  std::cout << "required time: " << time3.count() / 1000 << std::endl;
+  std::cout << "d-heap required time: " << time3.count() / 1000 << std::endl;
 
-
-
-  auto c = thick::MakeHeap();
-  thick::Insert(c, new FatNode(24));
-  thick::Insert(c, new FatNode(22354));
-  thick::Insert(c, new FatNode(2234));
-  thick::Insert(c, new FatNode(2234));
-  auto tmp = thick::ExtractMin(c);
-  thick::Insert(c, new FatNode(234));
-  thick::Insert(c, new FatNode(274));
-  tmp = thick::ExtractMin(c);
+  vec3.clear();
 
   return 0;
 }

@@ -1,6 +1,6 @@
 #include "thick_heap.h"
 
-ThickHeap::ThickHeap() : min_key_ptr(nullptr), max_rank(0), root_count(2), count_violation(2) {}
+ThickHeap::ThickHeap() : min_key_ptr(nullptr), max_rank(0), root_count(2) {}
 
 void ThickHeap::UpdateForwardPtr(int64_t i) {
   if (root_count[i + 1].value == 2)
@@ -68,7 +68,6 @@ void ThickHeap::rmFixRootCount(int i) {
   if (max_rank == i) {
     max_rank++;
     root_count.push_back(RootCountItem());
-    //count_violation.push_back(CountViolatinItem());
   } else
     UpdateForwardPtr(i + 1);
 

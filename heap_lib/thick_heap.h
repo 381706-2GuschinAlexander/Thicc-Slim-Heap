@@ -12,16 +12,10 @@ struct RootCountItem {
   RootCountItem();
 };
 
-struct CountViolatinItem {
-  int64_t value;
-  int64_t forward;
-  int64_t first;
-  int64_t second;
-};
+
 
 struct ThickHeap {
   std::vector<RootCountItem> root_count;
-  std::vector<CountViolatinItem> count_violation;
   FatNode* min_key_ptr;
   int64_t max_rank;
 
